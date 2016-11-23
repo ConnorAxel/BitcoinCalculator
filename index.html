@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Logo Nav - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/logo-nav.css" rel="stylesheet">
+
+
+
+    <script>
+        function ConvertirMonedaABitcoin() { 
+            var output = $.ajax({
+            url: 'https://community-bitcointy.p.mashape.com/price/' + document.getElementById("moneda").value, // The URL to the API. You can get this by clicking on "Show CURL example" from an API profile
+            type: 'GET', // The HTTP Method, can be GET POST PUT DELETE etc
+            data: {}, // Additional parameters here
+            dataType: 'json',
+            success: function(data) {
+                //
+                //Change data.source to data.something , where something is whichever part of the object you want returned.
+                //To see the whole object you can output it to your browser console using:
+                //console.log(data);
+                document.getElementById("output").innerHTML = data; 
+                },
+            error: function(err) { alert(err); },
+            beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-Mashape-Authorization", "nLXAVLkYa9mshcmGtyCr81ZNx3Gfp14UUd3jsnAyPrW38eJK5N"); // Enter here your Mashape key
+            }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="">
+                    <img class="img-responsive" src="img/logo.png" alt="">
+                </a>
+            </div>
+
+
+            <!-- Collect the nav links, forms, and other content for toggling --
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <p>Valor de 1 Bitcoin segun que moneda</p>
+        <label id="output"></label>
+        <select id="moneda" >
+            <option value="USD">Dolares estadounidenses</option>
+            <option value="EUR">Euros</option>
+            <option value="GBP">Libras</option>
+            <option value="CAD">Dolares Canadienses</option>
+            <option value="JPY">Yenes</option>
+        </select>
+        <button onclick="ConvertirMonedaABitcoin()">Calcular</button>
+        
+        <p>Valor de 1 Bitcoin segun que moneda</p>
+        <label id="output"></label>
+        <select id="moneda" >
+            <option value="USD">Dolares estadounidenses</option>
+            <option value="EUR">Euros</option>
+            <option value="GBP">Libras</option>
+            <option value="CAD">Dolares Canadienses</option>
+            <option value="JPY">Yenes</option>
+        </select>
+        <button onclick="ConvertirMonedaABitcoin()">Calcular</button>
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery-3.1.1.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
