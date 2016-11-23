@@ -21,7 +21,7 @@
 
     <script>
         function ConvertirMonedaABitcoin() { 
-            var monto = $("#txtMonto").val() * document.getElementById("cmbBitcoin").value;
+            var monto = $("#txtMonto").val();
             var moneda = document.getElementById("cmbMoneda").value;
             var output = $.ajax({
             url: 'https://community-bitcointy.p.mashape.com/convert/' + monto + '/' + moneda, // The URL to the API. You can get this by clicking on "Show CURL example" from an API profile
@@ -33,7 +33,7 @@
                 //Change data.source to data.something , where something is whichever part of the object you want returned.
                 //To see the whole object you can output it to your browser console using:
                 //console.log(data);
-                $("#txtResultado").val(data.value); 
+                $("#txtResultado").val(data.value * parseFloat(document.getElementById("cmbBitcoin").value)); 
                 },
             error: function(err) { alert(err); },
             beforeSend: function(xhr) {
@@ -41,6 +41,12 @@
             }
             });
         }
+        function soloNumeros(e){
+	        var key = window.Event ? e.which : e.keyCode
+	        return (key >= 48 && key <= 57)
+            
+        }
+       
     </script>
 
 </head>
@@ -86,8 +92,8 @@
     <!-- Page Content -->
     <div class="container">
         <p>Valor de Bitcoin a Moneda</p>
-        <input type="text" id="txtMonto">
-        <select id="cmbBitcoin" >
+        <input type="text" id="txtMonto" onKeyPress="return soloNumeros(event)">
+        <select id="cmbBitcoin">
             <option value="1">Bitcoins (BTC)</option>
             <option value="0.01">Bitcents (cBTC)</option>
             <option value="0.001">Millibits (mBTC)</option>
@@ -96,7 +102,7 @@
         </select>
         <HR>
         <input type="text" id="txtResultado" disabled>
-        <select id="cmbMoneda" >
+        <select id="cmbMoneda">
             <option value="USD">Dolares estadounidenses</option>
             <option value="EUR">Euros</option>
             <option value="GBP">Libras</option>
