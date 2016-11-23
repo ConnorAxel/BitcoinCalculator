@@ -21,8 +21,10 @@
 
     <script>
         function ConvertirMonedaABitcoin() { 
+            var monto = $("#txtMonto").val() * document.getElementById("cmbBitcoin").value;
+            var moneda = document.getElementById("cmbMoneda").value;
             var output = $.ajax({
-            url: 'https://community-bitcointy.p.mashape.com/price/' + document.getElementById("moneda").value, // The URL to the API. You can get this by clicking on "Show CURL example" from an API profile
+            url: 'https://community-bitcointy.p.mashape.com/convert/' + monto + '/' + moneda, // The URL to the API. You can get this by clicking on "Show CURL example" from an API profile
             type: 'GET', // The HTTP Method, can be GET POST PUT DELETE etc
             data: {}, // Additional parameters here
             dataType: 'json',
@@ -31,7 +33,7 @@
                 //Change data.source to data.something , where something is whichever part of the object you want returned.
                 //To see the whole object you can output it to your browser console using:
                 //console.log(data);
-                document.getElementById("output").innerHTML = data; 
+                $("#txtResultado").val(data.value); 
                 },
             error: function(err) { alert(err); },
             beforeSend: function(xhr) {
@@ -50,12 +52,12 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
+                </button> -->
                 <a class="navbar-brand" href="">
                     <img class="img-responsive" src="img/logo.png" alt="">
                 </a>
@@ -83,20 +85,18 @@
 
     <!-- Page Content -->
     <div class="container">
-        <p>Valor de 1 Bitcoin segun que moneda</p>
-        <label id="output"></label>
-        <select id="moneda" >
-            <option value="USD">Dolares estadounidenses</option>
-            <option value="EUR">Euros</option>
-            <option value="GBP">Libras</option>
-            <option value="CAD">Dolares Canadienses</option>
-            <option value="JPY">Yenes</option>
+        <p>Valor de Bitcoin a Moneda</p>
+        <input type="text" id="txtMonto">
+        <select id="cmbBitcoin" >
+            <option value="1">Bitcoins (BTC)</option>
+            <option value="0.01">Bitcents (cBTC)</option>
+            <option value="0.001">Millibits (mBTC)</option>
+            <option value="0.000001">Bits (μBTC)</option>
+            <option value="0.00000001">Satoshi (sat)</option>
         </select>
-        <button onclick="ConvertirMonedaABitcoin()">Calcular</button>
-        
-        <p>Valor de 1 Bitcoin segun que moneda</p>
-        <label id="output"></label>
-        <select id="moneda" >
+        <HR>
+        <input type="text" id="txtResultado" disabled>
+        <select id="cmbMoneda" >
             <option value="USD">Dolares estadounidenses</option>
             <option value="EUR">Euros</option>
             <option value="GBP">Libras</option>
